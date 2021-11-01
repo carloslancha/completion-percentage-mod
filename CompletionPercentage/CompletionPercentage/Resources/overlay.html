@@ -1,0 +1,40 @@
+<html>
+<head>
+	<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="skills">
+	<div id="completionPercentage">Porcentaje: <span id="percentageValue"></span></div>
+</div>
+
+<div>
+	<iframe id="iframeData" src="data.html" style="display:none"></iframe>
+</div>
+
+<script>
+	let lastUpdateTime;
+	
+	const element = document.querySelector('#percentageValue');
+
+	window.addEventListener('message', (event) => {
+		const data = event.data;
+
+		if (lastUpdateTime === data.lastUpdateTime) {
+			return;
+		}
+
+		lastUpdateTime = data.lastUpdateTime;
+		
+		element.innerHTML = data.completionPercentage + '%';
+	});
+
+	const iframe = document.querySelector('#iframeData');
+
+	const interval = setInterval(() => {
+		iframe.src = iframe.src;
+	}, 1000);
+
+</script>
+</body>
+</html>
